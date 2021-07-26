@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleafe.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Media List</title>
+</head>
+<body>
+<div class="container">
+    <h3>Media List</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>media Id</th>
+            <th>media Name</th>
+            <th>media type</th>
+            <th>Visibility</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="temp:${media}">
+            <td th:text="${temp.Id}"/>
+            <td th:text="${temp.mediaName}"/>
+            <td th:text="${temp.mediaType}"/>
+            <td th:text="${temp.mediaVisibility}"/>
+            <td >
+                <a th:href="@{/media/showFormForUpdate(mediaId=${temp.Id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+            </td>
+            <td >
+                <a th:href="@{/media/delete(Id=${temp.Id})}"
+                   class="btn btn-info btn-sm">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <a th:href="@{/}">Back to Home Page</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Library Directory</title>
+</head>
+<body>
+
+<div class="container col-lg-4 text-center" >
+    <p>User: <span sec:authentication="name"></span></p>
+    <p>Role(s): <span sec:authentication="principal.authorities"></span></p>
+</div>
+
+<div sec:authorize="hasRole('ADMIN')" align="center">
+    <!--<a href="/courses/list" class="btn btn-primary btn-sm mr-5 mb-3">Update Courses</a><br>
+    <a href="instructors/forstudents" class="btn btn-primary btn-sm mr-5 mb-3">View Courses</a><br>-->
+     <h5 align="center">books Directory</h5>
+   <a th:href="@{/media/showFormForAdd}" class="btn btn-primary btn-sm mr-5 mb-3" >Add Media in the Library</a><br>
+    <a th:href="@{/media/getList}" class="btn btn-primary btn-sm mr-5 mb-3" style="text-align:center">Update media in the Library</a><br>
+
+</div>
+<br>
+<div sec:authorize="hasRole('ADMIN') || hasRole('LIBRARIAN')" align="center">
+    <h5 align="center">Media Directory</h5>
+    <a th:href="@{/books/showFormForAdd}" class="btn btn-primary btn-sm mr-5 mb-3" style="text-align:center">Add Books in the Library</a><br>
+    <a th:href="@{/books/getList}" class="btn btn-primary btn-sm mr-5 mb-3" style="text-align:center">Update Books in the Library</a><br>
+</div>
+
+<br>
+<div sec:authorize="hasRole('STUDENT') || hasRole('ADMIN') || hasRole('LIBRARIAN') "align="center">
+
+    <h5 align="center">Click to see all the books available</h5>
+    <a th:href="@{/booksForStudents}" class="btn btn-primary btn-sm mr-5 mb-3" style="text-align:center">Books</a>
+    <hr>
+    <h5 align="center">Click to see all the media available</h5>
+    <a th:href="@{/mediaForStudents}" class="btn btn-primary btn-sm mr-5 mb-3" style="text-align:center">Media</a>
+</div>
+<hr>
+<form name="logoutForm" th:action="@{/logout}" method="post" style="text-align:center">
+    <input type="submit" value="Sign Out" align="center"/>
+</form>
+
+</body>
+</html>
